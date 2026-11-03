@@ -1,0 +1,28 @@
+demand-elasticity-system/
+├── .env.example
+├── demand_elasticity.sql
+├── package.json               (Root orchestration scripts)
+├── server/
+│   ├── package.json
+│   ├── db.js                 (MySQL connection pool & query helpers)
+│   ├── elasticity.js         (Demand elasticity calculation engine)
+│   └── server.js             (Express REST API routes & controllers)
+└── client/
+    ├── package.json
+    ├── vite.config.js
+    ├── tailwind.config.js
+    ├── postcss.config.js
+    ├── index.html
+    └── src/
+        ├── index.css
+        ├── main.jsx
+        ├── App.jsx           (Layout & navigation)
+        ├── utils/
+        │   └── elasticity.js (Frontend calculation & validation)
+        └── pages/
+            ├── Dashboard.jsx
+            ├── Products.jsx
+            ├── Experiments.jsx
+            ├── Observations.jsx
+            ├── Analysis.jsx  (Elasticity calculator & visualizer)
+            └── Reports.jsx   (Print & CSV export)

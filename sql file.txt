@@ -1,0 +1,75 @@
+CREATE DATABASE demand_elasticity;
+
+USE demand_elasticity;
+
+CREATE TABLE Products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    category VARCHAR(50),
+    brand VARCHAR(50)
+);
+
+CREATE TABLE Experiments (
+    experiment_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    experiment_name VARCHAR(100) NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    location VARCHAR(100),
+    notes TEXT,
+
+    FOREIGN KEY (product_id)
+        REFERENCES Products(product_id)
+);
+
+CREATE TABLE Observations (
+    observation_id INT AUTO_INCREMENT PRIMARY KEY,
+    experiment_id INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    quantity_sold INT NOT NULL,
+    observed_at DATETIME NOT NULL,
+
+    FOREIGN KEY (experiment_id)
+        REFERENCES Experiments(experiment_id),
+
+    CHECK (price > 0),
+    CHECK (quantity_sold >= 0)
+);
+
+
+USE demand_elasticity;
+
+INSERT INTO Products
+(product_name, category, brand)
+VALUES
+('Cold Drink', 'Beverages', 'Example Brand'),
+('Potato Chips', 'Snacks', 'Local Brand'),
+('Sandwitch', 'Light food', 'Local Brand'),
+('Soda', 'Beverages', 'Local Brand'),
+('Pastries', 'Cakes', 'Local Brand');
+
+INSERT INTO Experiments
+(product_id, experiment_name, start_date,
+ end_date, location, notes)
+VALUES
+(1, 'Cold Drink Price Test',
+ '2026-10-01', '2026-10-03',
+ 'Sample Shop',
+ 'Testing customer response to price changes');
+
+INSERT INTO Observations
+(experiment_id, price, quantity_sold, observed_at)
+VALUES
+(1, 100.00, 100, '2026-10-01 10:00:00'),
+(1, 110.00, 85,  '2026-10-02 10:00:00'),
+(1, 120.00, 70,  '2026-10-03 10:00:00');
+
+
+SELECT * FROM Products;
+SELECT * FROM Experiments;
+SELECT * FROM Observations;
+
+use demand_elasticity;
+show tables;
+
+
